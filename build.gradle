@@ -1,0 +1,21 @@
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'io.github.netmikey.gradleversionchecker.Main'
+
+ext {
+    toolingApiVersion = '5.3.1'
+}
+
+repositories {
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+}
+
+dependencies {
+    implementation "org.gradle:gradle-tooling-api:${toolingApiVersion}"
+    implementation "org.fusesource.jansi:jansi:1.17.1"
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.9.8"
+
+    runtimeOnly "org.slf4j:slf4j-simple:1.7.10"
+}
