@@ -4,10 +4,12 @@ import static org.fusesource.jansi.Ansi.*;
 
 import org.fusesource.jansi.Ansi.Erase;
 import org.fusesource.jansi.AnsiConsole;
+import org.springframework.stereotype.Component;
 
 /**
  * Small wrapper around the Jansi library to handle console output.
  */
+@Component
 public class ConsoleWriter {
 
     /**

@@ -2,27 +2,20 @@ package io.github.netmikey.gradleversionchecker;
 
 import java.io.File;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /**
  * Scans directories for Gradle projects.
  */
+@Component
 public class Scanner {
 
+    @Autowired
     private ConsoleWriter out;
 
+    @Autowired
     private ProjectAnalyzer analyzer;
-
-    /**
-     * Default constructor.
-     * 
-     * @param writer
-     *            The console writer to use.
-     * @param analyzer
-     *            The analyzer to use.
-     */
-    public Scanner(ConsoleWriter writer, ProjectAnalyzer analyzer) {
-        this.out = writer;
-        this.analyzer = analyzer;
-    }
 
     /**
      * Scan from the specified baseDir.
