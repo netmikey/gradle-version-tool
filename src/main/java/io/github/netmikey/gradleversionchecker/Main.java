@@ -1,12 +1,8 @@
 package io.github.netmikey.gradleversionchecker;
 
-import static org.fusesource.jansi.Ansi.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
-
-import javax.xml.ws.Holder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +23,9 @@ public class Main implements CommandLineRunner {
 
     @Autowired
     private ConsoleWriter out;
+
+    @Autowired
+    private ListAction list;
 
     @Autowired
     private UpgradeAction upgrade;
@@ -63,28 +62,13 @@ public class Main implements CommandLineRunner {
     public void run(String... args) throws Exception {
         switch (action) {
             case LIST:
-                list();
+                scanner.scan(new File(dir), list);
+                out.println(list.getNumFound() + " Gradle project" + (list.getNumFound() > 1 ? "s" : "") + " found");
                 break;
             case UPGRADE:
                 scanner.scan(new File(dir), upgrade);
                 break;
         }
-    }
-
-    private void list() {
-        Holder<Integer> numFound = new Holder<>(0);
-        scanner.scan(new File(dir), project -> {
-            numFound.value++;
-
-            out.println(">> Project: " + project.getProjectDir().getPath());
-            out.println(ansi().a("    Gradle: ").bold().format("%-10s ", project.getGradleVersion()).boldOff()
-                .a(out.formatVersionUpToDate(project)));
-            if (project.isUnderGitVersionControl()) {
-                out.println(ansi().a("    Branch: ").format("%-10s ", project.getBranch()));
-            }
-            out.println("");
-        });
-        out.println(numFound.value + " Gradle project" + (numFound.value > 1 ? "s" : "") + " found");
     }
 
     /**
