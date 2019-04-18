@@ -2,6 +2,7 @@ package io.github.netmikey.gradleversionchecker;
 
 import static org.fusesource.jansi.Ansi.*;
 
+import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.Ansi.Erase;
 import org.fusesource.jansi.AnsiConsole;
 import org.springframework.stereotype.Component;
@@ -66,4 +67,20 @@ public class ConsoleWriter {
         lastVolatile = "";
     }
 
+    /**
+     * Format the up-to-date information.
+     * 
+     * @param project
+     *            The project the value is read from.
+     * @return The ansi formatted console output.
+     */
+    public Ansi formatVersionUpToDate(ProjectMetadata project) {
+        Ansi gradleVersionUpToDate = ansi();
+        if (project.isGradleVersionUpToDate()) {
+            gradleVersionUpToDate = ansi().fgGreen().a("UP TO DATE").reset();
+        } else {
+            gradleVersionUpToDate = ansi().fgBrightRed().a("NOT UP TO DATE").reset();
+        }
+        return gradleVersionUpToDate;
+    }
 }
