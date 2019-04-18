@@ -183,7 +183,7 @@ public class UpgradeAction implements Consumer<ProjectMetadata> {
     }
 
     private boolean evaluateUpgradability(ProjectMetadata project) {
-        if (gradleInfo.latestGradleVersion().equals(project.getGradleVersion())) {
+        if (project.isGradleVersionUpToDate()) {
             return false;
         }
         boolean doUpgrade = true;
@@ -197,9 +197,6 @@ public class UpgradeAction implements Consumer<ProjectMetadata> {
                     + project.getGitAheadCount() + " ahead, " + project.getGitBehindCount() + " behind");
                 doUpgrade = false;
             }
-        }
-        if (project.isGradleVersionUpToDate()) {
-            doUpgrade = false;
         }
         if (!majorUpgrades && !project.isGradleVersionSameMajorAsCurrent()) {
             notUpgrading(doUpgrade, "not the same major version and major upgrades disabled");
