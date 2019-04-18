@@ -1,6 +1,8 @@
 
 # Gradle Version Tool
 
+[![Build Status](https://travis-ci.com/netmikey/gradle-version-tool.svg?branch=master)](https://travis-ci.com/netmikey/gradle-version-tool)
+
 A tool for managing the Gradle versions of multiple projects.
 
 
