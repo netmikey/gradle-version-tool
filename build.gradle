@@ -22,6 +22,7 @@ ext {
 }
 
 repositories {
+    mavenCentral()
     maven { url "https://repo.gradle.org/gradle/libs-releases" }
 }
 
@@ -32,9 +33,16 @@ dependencyManagement {
 }
 
 dependencies {
-    implementation "org.springframework.boot:spring-boot-starter"
-    implementation "org.gradle:gradle-tooling-api:${toolingApiVersion}"
-    implementation "org.fusesource.jansi:jansi:${jansiVersion}"
-    implementation "com.fasterxml.jackson.core:jackson-databind"
-    implementation "org.eclipse.jgit:org.eclipse.jgit:${jgitVersion}"
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.gradle:gradle-tooling-api:${toolingApiVersion}")
+    implementation("org.fusesource.jansi:jansi:${jansiVersion}")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:${jgitVersion}")
+    implementation("org.junit.jupiter:junit-jupiter-api")
+
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+}
+
+test {
+    useJUnitPlatform()
 }
